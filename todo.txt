@@ -1,0 +1,130 @@
+TUTUR.ID - TODO LIST
+=====================
+
+[SETUP & FONDASI]
+[ x ] Setup project Flutter (mobile + web target)
+[ x ] Setup Firebase project (Auth, Firestore, Storage rules)
+[ x ] Setup Cloudinary account & API keys
+[ x ] Setup Midtrans sandbox account
+[ x ] Buat struktur direktori sesuai README (core/, features/, shared/)
+[ x ] Tambahkan dependency: flutter_riverpod (manual provider, TANPA riverpod_annotation/build_runner)
+[ x ] Bungkus root widget dengan ProviderScope di main.dart
+[ x ] Setup routing (go_router/auto_route)
+[ x ] Buat core/network/api_client.dart (Dio wrapper)
+[ x ] Buat core/services/firebase_service.dart
+[ x ] Buat core/services/cloudinary_service.dart
+[ x ] Buat core/services/midtrans_service.dart
+[ x ] Setup .env & environment config
+[ x ] Download & taruh model .tflite + classes.txt dari Patuli-ML ke assets/models/
+
+[FITUR: AUTH & ONBOARDING]
+[ ] Implementasi SSO Google
+[ ] Screen onboarding (username, no telp, foto profil - skippable)
+[ ] Provider: authRepositoryProvider, authStateProvider (StreamProvider dari Firebase Auth)
+[ ] Simpan data onboarding ke Firestore
+[ ] Handle session persistence
+
+[FITUR: LEARNING MODULE]
+[ ] Data model Module & Level
+[ ] Repository ambil data modul dari Firestore
+[ ] Provider: learningRepositoryProvider, modulesProvider (FutureProvider.family by level)
+[ ] Screen list level & modul
+[ ] Screen detail materi (video/foto via Cloudinary)
+[ ] Level 1: Alphabet Alpha (A-M) + kuis 4 soal
+[ ] Level 1: Number Base (0-5) + kuis 3 soal
+[ ] Level 1: SpellingQuest I + validasi input filter (A-M, 0-4)
+[ ] Level 2: Alphabet Omega (N-Z) + kuis 4 soal
+[ ] Level 2: Number Advance (6-10) + kuis 3 soal
+[ ] Level 2: The Identity challenge
+[ ] Level 3: Social Essentials + kuis 4 soal
+[ ] Level 3: Direction & Position + kuis 3 soal
+[ ] Level 3: Expressive Signs + kuis 4 soal
+[ ] Level 3: The Master Challenge (kalimat 3 kosakata acak)
+
+[FITUR: AI TRAINING / KAMERA]
+[ ] Setup TFLite interpreter di isolate terpisah
+[ ] Implementasi preprocessing (resize 320x320, normalisasi, RGB, Float32List)
+[ ] Implementasi inference pipeline
+[ ] Provider: aiTrainingProvider (AsyncNotifierProvider) untuk handle proses frame & hasil inference
+[ ] UI kamera + bounding box overlay
+[ ] Feedback visual "Berhasil" / panduan koreksi
+[ ] Sistem baterai: consumption 2 poin/sesi
+[ ] Sistem baterai: refresh rate per tier (Starter 1/jam, Growth 2/jam)
+[ ] Provider: batteryProvider (StreamProvider) untuk sync real-time ke Firebase
+[ ] Frame throttling / skip-frame optimization
+[ ] Testing performa di device low-end
+
+[FITUR: SUBSCRIPTION]
+[ ] Screen pilihan paket (Starter/Growth/Ultimate)
+[ ] Integrasi Midtrans payment flow
+[ ] Provider: subscriptionProvider (AsyncNotifierProvider) untuk handle checkout & status
+[ ] Handle callback/webhook status transaksi
+[ ] Update status subscription otomatis setelah pembayaran sukses
+[ ] Unlock fitur sesuai tier (level akses, badge, banner)
+
+[FITUR: GAMIFIKASI]
+[ ] Sistem XP otomatis (sesi latihan +50, modul +100, kuis +10)
+[ ] Daily Quest (5 misi, reset 24 jam)
+[ ] Weekly Leaderboard (reset tiap Senin)
+[ ] Provider: leaderboardProvider (StreamProvider), dailyQuestProvider
+[ ] Visualisasi progres belajar (grafik, streak)
+[ ] Badge & banner reward untuk top rank
+
+[FITUR: PROFILE]
+[ ] Screen manage profile (edit data kecuali email)
+[ ] Provider: profileProvider (FutureProvider/AsyncNotifierProvider untuk update)
+[ ] Tampilkan sisa saldo baterai
+[ ] Riwayat aktivitas belajar
+
+[FITUR: REPORT & FEEDBACK]
+[ ] Form report (kategori: AI Kamera, Pembayaran, Materi)
+[ ] Upload 2 foto bukti ke Cloudinary
+[ ] Tombol "Hubungi via WhatsApp" (wa.me link)
+[ ] Form feedback (star rating + deskripsi)
+[ ] Provider: reportRepositoryProvider, submitReportProvider (AsyncNotifierProvider)
+
+[FITUR: NOTIFIKASI]
+[ ] Pusat notifikasi UI
+[ ] Provider: notificationProvider (StreamProvider dari Firebase)
+[ ] Integrasi Firebase untuk pesan sistem
+[ ] Notifikasi Daily Quest reminder
+[ ] Notifikasi perubahan leaderboard
+[ ] Notifikasi status transaksi Midtrans
+[ ] Arsip riwayat notifikasi
+
+[ADMIN: MANAJEMEN PENGGUNA]
+[ ] List & filter pengguna aktif
+[ ] Lihat status subscription per user
+[ ] Aksi administratif (suspend/handle penyalahgunaan)
+
+[ADMIN: CRUD MATERI]
+[ ] Form upload materi (video/foto ke Cloudinary)
+[ ] CRUD deskripsi materi per level/modul
+[ ] Preview materi sebelum publish
+
+[ADMIN: BROADCAST NOTIFIKASI]
+[ ] Custom messaging (pesan bebas)
+[ ] Automated templates (reminder, info update)
+
+[ADMIN: LAPORAN TRANSAKSI]
+[ ] Dashboard riwayat pembayaran Midtrans
+[ ] Filter & summary pendapatan bulanan
+
+[ADMIN: LAPORAN REPORT/FEEDBACK]
+[ ] List & filter report/feedback (tipe & kategori)
+[ ] Update status report (Diterima/Diproses/Selesai)
+[ ] Kirim pesan respon (template/custom)
+[ ] Review feedback + star rating analytics
+
+[TESTING & OPTIMASI]
+[ ] Unit test repository & logic layer (mock provider pakai ProviderContainer override)
+[ ] Widget test screen utama (pakai ProviderScope override untuk testing)
+[ ] Load testing inference model (FPS, memory usage)
+[ ] Testing di berbagai device (low-end s/d high-end)
+[ ] Optimasi asset size (image compression via Cloudinary transform)
+
+[DOKUMENTASI]
+[ ] README.md (selesai — final dengan Riverpod manual)
+[ ] AGENTS.md (selesai — final dengan Riverpod manual)
+[ ] Dokumentasi API/service internal
+[ ] Diagram ER database Firestore
