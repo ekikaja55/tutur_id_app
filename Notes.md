@@ -216,7 +216,7 @@ class CloudinaryService {
     return response.secureUrl;
   }
 
-  Future<String> uploadVideo(File file, {String folder = 'tutur_id'}) async {
+2  Future<String> uploadVideo(File file, {String folder = 'tutur_id'}) async {
     final response = await _cloudinary.uploadFile(
       CloudinaryFile.fromFile(
         file.path,
