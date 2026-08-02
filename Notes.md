@@ -693,9 +693,9 @@ final routerProvider = Provider<GoRouter>((ref) {
 
         // Proteksi: admin coba akses halaman khusus student (opsional,
         // tergantung apakah admin boleh juga akses fitur belajar)
-        // if (role == 'admin' && state.matchedLocation.startsWith('/learning')) {
-        //   return '/admin/users';
-        // }
+        if (role == 'admin' && state.matchedLocation.startsWith('/learning')) {
+         return '/admin/users';
+         }
       }
 
       return null; // no redirect

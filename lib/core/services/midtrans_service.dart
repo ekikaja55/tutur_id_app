@@ -49,7 +49,7 @@ class MidtransService {
       AppLogger.s(
         'Transaksi berhasil dibuat. Token: ${response.data['token']}',
       );
-      
+
       return response.data['token'];
     } on DioException catch (e, stackTrace) {
       AppLogger.e(

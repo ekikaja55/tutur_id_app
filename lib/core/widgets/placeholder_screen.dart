@@ -3,14 +3,8 @@ import 'package:flutter/material.dart';
 class PlaceholderScreen extends StatelessWidget {
   final String title;
   final String? subTitle;
-  final IconData icon;
 
-  const PlaceholderScreen({
-    super.key,
-    required this.title,
-    this.subTitle,
-    this.icon = Icons.construction,
-  });
+  const PlaceholderScreen({super.key, required this.title, this.subTitle});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +14,7 @@ class PlaceholderScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 64, color: Colors.grey),
+            Icon(Icons.construction, size: 64, color: Colors.grey),
             const SizedBox(height: 16),
             Text(title, style: Theme.of(context).textTheme.headlineMedium),
             if (subTitle != null) ...[
