@@ -18,11 +18,11 @@ TUTUR.ID - TODO LIST
 [ x ] Download & taruh model .tflite + classes.txt dari Patuli-ML ke assets/models/
 
 [FITUR: AUTH & ONBOARDING]
-[ ] Implementasi SSO Google
+[ x ] Implementasi SSO Google
 [ ] Screen onboarding (username, no telp, foto profil - skippable)
-[ ] Provider: authRepositoryProvider, authStateProvider (StreamProvider dari Firebase Auth)
-[ ] Simpan data onboarding ke Firestore
-[ ] Handle session persistence
+[ x ] Provider: authRepositoryProvider, authStateProvider (StreamProvider dari Firebase Auth)
+[ x ] Simpan data onboarding ke Firestore
+[ x ] Handle session persistence
 
 [FITUR: LEARNING MODULE]
 [ ] Data model Module & Level
