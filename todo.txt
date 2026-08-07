@@ -19,7 +19,7 @@ TUTUR.ID - TODO LIST
 
 [FITUR: AUTH & ONBOARDING]
 [ x ] Implementasi SSO Google
-[ ] Screen onboarding (username, no telp, foto profil - skippable)
+[ x ] Screen onboarding (username, no telp, foto profil - skippable)
 [ x ] Provider: authRepositoryProvider, authStateProvider (StreamProvider dari Firebase Auth)
 [ x ] Simpan data onboarding ke Firestore
 [ x ] Handle session persistence
