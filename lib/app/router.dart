@@ -5,6 +5,9 @@ import 'package:tutur_id_app/core/utils/go_router_refresh_stream.dart';
 import 'package:tutur_id_app/core/widgets/access_denied_screen.dart';
 import 'package:tutur_id_app/core/widgets/not_found_screen.dart';
 import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/quiz_screen.dart';
 
 const _adminPrefixes = ['/admin'];
 const _studentPrefixes = [
@@ -77,19 +80,24 @@ final routerProvider = Provider<GoRouter>((ref) {
             const PlaceholderScreen(title: "Onboarding Page"),
       ),
       GoRoute(
-        path: "/learning",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Learning Page"),
+        path: '/learning',
+        builder: (context, state) => const LearningHomeScreen(),
         routes: [
           GoRoute(
-            path: "level/:levelId",
+            path: 'module/:moduleId',
             builder: (context, state) {
-              final levelId = state.pathParameters['levelId'];
-              return PlaceholderScreen(
-                title: "Level Page",
-                subTitle: "Id level : $levelId",
-              );
+              final moduleId = state.pathParameters['moduleId']!;
+              return ModuleDetailScreen(moduleId: moduleId);
             },
+            routes: [
+              GoRoute(
+                path: 'quiz',
+                builder: (context, state) {
+                  final moduleId = state.pathParameters['moduleId']!;
+                  return QuizScreen(moduleId: moduleId);
+                },
+              ),
+            ],
           ),
         ],
       ),

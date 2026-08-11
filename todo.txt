@@ -25,21 +25,17 @@ TUTUR.ID - TODO LIST
 [ x ] Handle session persistence
 
 [FITUR: LEARNING MODULE]
-[ ] Data model Module & Level
-[ ] Repository ambil data modul dari Firestore
-[ ] Provider: learningRepositoryProvider, modulesProvider (FutureProvider.family by level)
-[ ] Screen list level & modul
-[ ] Screen detail materi (video/foto via Cloudinary)
-[ ] Level 1: Alphabet Alpha (A-M) + kuis 4 soal
-[ ] Level 1: Number Base (0-5) + kuis 3 soal
-[ ] Level 1: SpellingQuest I + validasi input filter (A-M, 0-4)
-[ ] Level 2: Alphabet Omega (N-Z) + kuis 4 soal
-[ ] Level 2: Number Advance (6-10) + kuis 3 soal
-[ ] Level 2: The Identity challenge
-[ ] Level 3: Social Essentials + kuis 4 soal
-[ ] Level 3: Direction & Position + kuis 3 soal
-[ ] Level 3: Expressive Signs + kuis 4 soal
-[ ] Level 3: The Master Challenge (kalimat 3 kosakata acak)
+[x] Data model Module & Level
+[x] Repository ambil data modul dari Firestore
+[x] Provider: learningRepositoryProvider, modulesProvider
+[x] Screen list level & modul
+[x] Screen detail materi + kuis generik
+[x] Level 1: Alphabet Alpha, Number Base (pakai screen generik)
+[x] Level 2: Alphabet Omega, Number Advance (pakai screen generik)
+[x] Level 3: Social Essentials, Direction & Position, Expressive Signs (pakai screen generik)
+[ ] Level 1: SpellingQuest I - PENDING, butuh ai_training/ selesai dulu
+[ ] Level 2: The Identity - PENDING, butuh ai_training/ selesai dulu
+[ ] Level 3: The Master Challenge - PENDING, butuh ai_training/ selesai dulu
 
 [FITUR: AI TRAINING / KAMERA]
 [ ] Setup TFLite interpreter di isolate terpisah
@@ -115,6 +111,17 @@ TUTUR.ID - TODO LIST
 [ ] Update status report (Diterima/Diproses/Selesai)
 [ ] Kirim pesan respon (template/custom)
 [ ] Review feedback + star rating analytics
+
+[POLISH & DESIGN - dikerjakan setelah semua fitur fungsional selesai]
+[ ] Upload foto profil saat onboarding
+[ ] Custom theme sesuai brand identity Tutur.id (logo, warna, font)
+[ ] Refine UI semua screen (replace placeholder styling)
+[ ] Animasi transisi antar halaman
+[ ] Loading skeleton (bukan cuma CircularProgressIndicator polos)
+[ ] Empty state illustration (misal "belum ada laporan" dengan ilustrasi, bukan teks polos)
+[ ] Responsive layout untuk admin (web) - saat ini asumsi desktop, cek di berbagai ukuran layar
+[ ] Icon custom BISINDO-themed (opsional)
+[ ] Micro-interaction (misal animasi saat dapat XP, konfetti saat naik level, dst)
 
 [TESTING & OPTIMASI]
 [ ] Unit test repository & logic layer (mock provider pakai ProviderContainer override)
