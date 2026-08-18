@@ -1,8 +1,0 @@
-Pintasan Keyboard (Shortcut) Berguna Saat Pakai scrcpy
-    Alt + f: Mengubah ke tampilan layar penuh (Fullscreen).
-    Alt + g: Mengubah skala jendela ke ukuran asli (Resize to 1:1).
-    Alt + b / Klik Kanan Mouse: Berfungsi sebagai tombol Back di HP.
-    Alt + h / Klik Tengah Mouse: Berfungsi sebagai tombol Home di HP.
-    Alt + p: Mematikan/menyalakan layar HP tanpa mematikan sesi mirroring (Sangat menghemat baterai HP!).
-    Drag-and-drop file/APK: Cukup geser file .apk dari Windows ke dalam jendela scrcpy untuk langsung memasang aplikasi ke HP.
-

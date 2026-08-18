@@ -5,9 +5,12 @@ import 'package:tutur_id_app/core/utils/go_router_refresh_stream.dart';
 import 'package:tutur_id_app/core/widgets/access_denied_screen.dart';
 import 'package:tutur_id_app/core/widgets/not_found_screen.dart';
 import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
+import 'package:tutur_id_app/features/auth/presentation/screen/login_screen.dart';
+import 'package:tutur_id_app/features/auth/presentation/screen/onboarding_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/quiz_screen.dart';
+import 'package:tutur_id_app/shared/enums/user_role.dart';
 
 const _adminPrefixes = ['/admin'];
 const _studentPrefixes = [
@@ -47,14 +50,16 @@ final routerProvider = Provider<GoRouter>((ref) {
           return isOnboarding ? null : '/onboarding';
         }
 
-        final role = userData['role'] as String? ?? 'student';
+        final role = UserRole.fromMap(userData['role'] as String?);
         if (isLoggingIn || isOnboarding) {
-          return role == 'admin' ? '/admin' : '/learning';
+          return role == UserRole.admin ? '/admin' : '/learning';
         }
-        if (role != 'admin' && _matchesAnyPrefix(location, _adminPrefixes)) {
+        if (role != UserRole.admin &&
+            _matchesAnyPrefix(location, _adminPrefixes)) {
           return '/access-denied';
         }
-        if (role == 'admin' && _matchesAnyPrefix(location, _studentPrefixes)) {
+        if (role == UserRole.admin &&
+            _matchesAnyPrefix(location, _studentPrefixes)) {
           return '/access-denied';
         }
       }
@@ -69,15 +74,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       // =============== ROUTES LIST BUAT PELAJAR ===============
-      GoRoute(
-        path: "/login",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Login Page"),
-      ),
+      GoRoute(path: "/login", builder: (context, state) => const LoginScreen()),
       GoRoute(
         path: "/onboarding",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Onboarding Page"),
+        builder: (context, state) => const OnboardingScreen(),
       ),
       GoRoute(
         path: '/learning',

@@ -38,14 +38,14 @@ TUTUR.ID - TODO LIST
 [ ] Level 3: The Master Challenge - PENDING, butuh ai_training/ selesai dulu
 
 [FITUR: AI TRAINING / KAMERA]
-[ ] Setup TFLite interpreter di isolate terpisah
-[ ] Implementasi preprocessing (resize 320x320, normalisasi, RGB, Float32List)
-[ ] Implementasi inference pipeline
-[ ] Provider: aiTrainingProvider (AsyncNotifierProvider) untuk handle proses frame & hasil inference
-[ ] UI kamera + bounding box overlay
-[ ] Feedback visual "Berhasil" / panduan koreksi
-[ ] Sistem baterai: consumption 2 poin/sesi
-[ ] Sistem baterai: refresh rate per tier (Starter 1/jam, Growth 2/jam)
+[ x ] Setup TFLite interpreter di isolate terpisah
+[ x ] Implementasi preprocessing (resize 320x320, normalisasi, RGB, Float32List)
+[ x ] Implementasi inference pipeline
+[ x ] Provider: aiTrainingProvider (AsyncNotifierProvider) untuk handle proses frame & hasil inference
+[ x ] UI kamera + bounding box overlay
+[ x ] Feedback visual "Berhasil" / panduan koreksi
+[ x ] Sistem baterai: consumption 2 poin/sesi
+[] Sistem baterai: refresh rate per tier (Starter 1/jam, Growth 2/jam)
 [ ] Provider: batteryProvider (StreamProvider) untuk sync real-time ke Firebase
 [ ] Frame throttling / skip-frame optimization
 [ ] Testing performa di device low-end

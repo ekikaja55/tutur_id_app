@@ -1,26 +1,13 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tutur_id_app/core/errors/failure.dart';
 import 'package:tutur_id_app/core/services/providers.dart';
 import 'package:tutur_id_app/core/utils/app_logger.dart';
 import 'package:tutur_id_app/features/auth/data/models/user_model.dart';
 import 'package:tutur_id_app/features/auth/data/repositories/auth_repository.dart';
-
-enum UserRole {
-  student,
-  admin,
-  unknown;
-
-  String toMap() => name;
-  static UserRole fromMap(String? value) {
-    if (value == null) return UserRole.unknown;
-    return UserRole.values.firstWhere(
-      (e) => e.name.toLowerCase() == value.toLowerCase(),
-      orElse: () => UserRole.unknown,
-    );
-  }
-}
+import 'package:tutur_id_app/shared/enums/user_role.dart';
 
 // define provider dari auth repository
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
@@ -28,8 +15,8 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 // buat stream auth state dari firebase
-final authStateProvider = StreamProvider((ref) {
-  return ref.watch(firebaseServiceProvider).authStateChanges;
+final authStateProvider = StreamProvider<User?>((ref) {
+  return ref.watch(authRepositoryProvider).authStateChanges;
 });
 
 // buat state profile user (null kalau belum onboarding / belum ada dokumen)
@@ -42,7 +29,7 @@ final userProfileProvider = FutureProvider<UserModel?>((ref) async {
 });
 
 // buat state  user dari firestore berdasarkan state auth state yang di handle di authStateProvider
-final userRoleProvider = FutureProvider<UserRole>((ref) async {
+final userRoleProvider = FutureProvider<UserRole?>((ref) async {
   AppLogger.i(
     "Try watch ref from userProfileProvider()",
     tag: "Auth Provider -> userRoleProvider()",
@@ -53,8 +40,7 @@ final userRoleProvider = FutureProvider<UserRole>((ref) async {
     "Data from profile : $profile",
     tag: "Auth Provider -> userRoleProvider()",
   );
-  if (profile == null) return UserRole.unknown;
-  return profile.role;
+  return profile?.role;
 });
 
 class AuthNotifier extends AsyncNotifier {
