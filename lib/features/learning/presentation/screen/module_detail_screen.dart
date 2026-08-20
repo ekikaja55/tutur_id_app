@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tutur_id_app/features/learning/data/models/module_model.dart';
 import 'package:tutur_id_app/features/learning/logic/learning_provider.dart';
+import 'package:tutur_id_app/shared/enums/model_category.dart';
 
 class ModuleDetailScreen extends ConsumerWidget {
   final String moduleId;
@@ -59,8 +60,6 @@ class ModuleDetailScreen extends ConsumerWidget {
                         style: Theme.of(context).textTheme.headlineMedium,
                       ),
                       const SizedBox(height: 8),
-                      // Simpel dulu: tampilkan sebagai placeholder video player
-                      // TODO: ganti dengan video_player + Cloudinary URL asli
                       AspectRatio(
                         aspectRatio: 16 / 9,
                         child: Container(
@@ -77,6 +76,26 @@ class ModuleDetailScreen extends ConsumerWidget {
             },
           ),
         ),
+
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: ElevatedButton.icon(
+            onPressed: module.materials.isEmpty
+                ? null
+                : () {
+                    context.push(
+                      '/ai-training/${module.id}',
+                      extra: {
+                        'materials': module.materials,
+                        'category': _categoryForModule(module),
+                      },
+                    );
+                  },
+            icon: const Icon(Icons.camera_alt),
+            label: const Text('Latihan Kamera'),
+          ),
+        ),
+
         Padding(
           padding: const EdgeInsets.all(16),
           child: ElevatedButton(
@@ -92,5 +111,23 @@ class ModuleDetailScreen extends ConsumerWidget {
         ),
       ],
     );
+  }
+
+  // Helper: tentukan model TFLite mana yang dipakai berdasarkan level & tipe modul
+  ModelCategory _categoryForModule(ModuleModel module) {
+    // Level 1-2 isinya alphabet & number (fingerspelling)
+    // Level 3 isinya kosakata/lexical (words)
+    if (module.type == ModuleType.lexical) {
+      return ModelCategory.words;
+    }
+
+    // Untuk fingerspelling, perlu bedakan alphabet vs number
+    // berdasarkan title modul (sesuai penamaan modul di requirement awal kamu)
+    final title = module.title.toLowerCase();
+    if (title.contains('number') || title.contains('angka')) {
+      return ModelCategory.number;
+    }
+
+    return ModelCategory.alphabet; // default untuk Alphabet Alpha/Omega
   }
 }

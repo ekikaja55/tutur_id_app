@@ -9,7 +9,10 @@ import 'package:tutur_id_app/features/ai_training/ml/inference/inference_capture
 import 'package:tutur_id_app/features/ai_training/ml/inference/inference_engine.dart';
 import 'package:tutur_id_app/features/ai_training/ml/inference/inference_isolate.dart';
 import 'package:tutur_id_app/features/auth/logic/auth_provider.dart';
+import 'package:tutur_id_app/features/gamification/logic/gamification_provider.dart';
 import 'package:tutur_id_app/shared/enums/model_category.dart';
+import 'package:tutur_id_app/shared/enums/quest_type.dart';
+import 'package:tutur_id_app/shared/enums/xp_source.dart';
 
 const _tag = 'AI_TRAINING';
 
@@ -150,6 +153,15 @@ class AiTrainingNotifier extends Notifier<AiTrainingState> {
     _timer?.cancel();
     state = AiTrainingState();
     AppLogger.i('State direset ke idle', tag: _tag);
+  }
+
+  Future<void> completeSession() async {
+    await ref
+        .read(gamificationNotifierProvider.notifier)
+        .addXp(amount: 50, source: XpSource.aiSession);
+    await ref
+        .read(gamificationNotifierProvider.notifier)
+        .updateQuestProgress(QuestType.persistentLearner);
   }
 }
 

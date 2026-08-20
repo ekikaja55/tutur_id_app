@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tutur_id_app/core/utils/app_logger.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 const _tag = "CAMERA";
 
@@ -44,6 +45,13 @@ class CameraControllerNotifier extends AsyncNotifier<CameraController?> {
     state = const AsyncLoading();
 
     state = await AsyncValue.guard(() async {
+      final permissionStatus = await Permission.camera.request();
+
+      if (!permissionStatus.isGranted) {
+        AppLogger.w('Izin kamera ditolak', tag: _tag);
+        throw Exception('Izin kamera diperlukan untuk fitur ini');
+      }
+
       final cameras = await ref.read(availableCamerasProvider.future);
       if (cameras.isEmpty) {
         throw Exception('Tidak ada kamera yang tersedia di device ini');

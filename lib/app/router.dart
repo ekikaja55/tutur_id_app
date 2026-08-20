@@ -5,11 +5,14 @@ import 'package:tutur_id_app/core/utils/go_router_refresh_stream.dart';
 import 'package:tutur_id_app/core/widgets/access_denied_screen.dart';
 import 'package:tutur_id_app/core/widgets/not_found_screen.dart';
 import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
+import 'package:tutur_id_app/features/ai_training/presentation/screen/ai_training_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/onboarding_screen.dart';
+import 'package:tutur_id_app/features/gamification/presentation/screen/leaderboard_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/quiz_screen.dart';
+import 'package:tutur_id_app/shared/enums/model_category.dart';
 import 'package:tutur_id_app/shared/enums/user_role.dart';
 
 const _adminPrefixes = ['/admin'];
@@ -104,10 +107,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: "/ai-training/:moduleId",
         builder: (context, state) {
-          final moduleId = state.pathParameters['moduleId'];
-          return PlaceholderScreen(
-            title: "AI Camera Page",
-            subTitle: "Id Module : $moduleId",
+          final moduleId = state.pathParameters['moduleId']!;
+          final extra = state.extra as Map<String, dynamic>?;
+          return AiTrainingScreen(
+            moduleId: moduleId,
+            materials: extra?['materials'] ?? [],
+            category: extra?['category'] ?? ModelCategory.alphabet,
           );
         },
       ),
@@ -126,15 +131,14 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) =>
             const PlaceholderScreen(title: "Notification Page"),
       ),
-      GoRoute(
-        path: "/leaderboard",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Leaderboard Page"),
+     GoRoute(
+        path: '/leaderboard',
+        builder: (context, state) => const LeaderboardScreen(),
       ),
 
       // =============== ROUTES LIST BUAT ADMIN ===============
       GoRoute(
-        path: "/admin/",
+        path: "/admin",
         builder: (context, state) =>
             const PlaceholderScreen(title: "Admin - Dashboard Page"),
         routes: [

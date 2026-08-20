@@ -38,17 +38,19 @@ TUTUR.ID - TODO LIST
 [ ] Level 3: The Master Challenge - PENDING, butuh ai_training/ selesai dulu
 
 [FITUR: AI TRAINING / KAMERA]
-[ x ] Setup TFLite interpreter di isolate terpisah
-[ x ] Implementasi preprocessing (resize 320x320, normalisasi, RGB, Float32List)
-[ x ] Implementasi inference pipeline
-[ x ] Provider: aiTrainingProvider (AsyncNotifierProvider) untuk handle proses frame & hasil inference
-[ x ] UI kamera + bounding box overlay
-[ x ] Feedback visual "Berhasil" / panduan koreksi
-[ x ] Sistem baterai: consumption 2 poin/sesi
-[] Sistem baterai: refresh rate per tier (Starter 1/jam, Growth 2/jam)
-[ ] Provider: batteryProvider (StreamProvider) untuk sync real-time ke Firebase
-[ ] Frame throttling / skip-frame optimization
-[ ] Testing performa di device low-end
+[x] Setup TFLite interpreter (load + cache per kategori model)
+[x] Implementasi preprocessing (resize 320x320, normalisasi, RGB, Float32List)
+[x] Implementasi inference pipeline + logging validasi tensor
+[x] Provider: aiTrainingProvider (shutter timer + capture + detect)
+[x] UI kamera + shutter countdown + popup hasil
+[x] Sistem baterai: consumption 2 poin/sesi (dipotong sekali di awal sesi)
+[x] CameraController setup + permission handling
+[ ] Sistem baterai: refresh rate per tier - PENDING, masuk ke fitur subscription/gamification
+[ ] Sync status baterai real-time ke Firebase - PENDING (saat ini masih single fetch, belum stream)
+[ ] Frame throttling / skip-frame optimization - SKIP, sudah teratasi dengan shutter-trigger approach
+[ ] Rotasi frame kamera - PENDING, perlu testing di device fisik dulu
+[ ] Testing performa di device low-end - PENDING, nanti sekaligus di fase testing
+[ ] Trigger completeModule() setelah AI training modul selesai - PENDING, perlu integrasi ke learning/
 
 [FITUR: SUBSCRIPTION]
 [ ] Screen pilihan paket (Starter/Growth/Ultimate)
@@ -59,12 +61,15 @@ TUTUR.ID - TODO LIST
 [ ] Unlock fitur sesuai tier (level akses, badge, banner)
 
 [FITUR: GAMIFIKASI]
-[ ] Sistem XP otomatis (sesi latihan +50, modul +100, kuis +10)
-[ ] Daily Quest (5 misi, reset 24 jam)
-[ ] Weekly Leaderboard (reset tiap Senin)
-[ ] Provider: leaderboardProvider (StreamProvider), dailyQuestProvider
-[ ] Visualisasi progres belajar (grafik, streak)
-[ ] Badge & banner reward untuk top rank
+[x] Sistem XP otomatis (sesi latihan +50, modul +100, kuis +10 per jawaban benar)
+[x] Daily Quest (5 misi, reset otomatis tiap hari berbeda)
+[x] Weekly Leaderboard (denormalized data, order by weeklyXp)
+[x] Provider: leaderboardProvider, dailyQuestProvider
+[x] Battery refresh otomatis berdasarkan tier & waktu berlalu
+[x] Streak tracking berdasarkan daily login
+[ ] Visualisasi progres belajar (grafik) - PENDING, masuk ke features/profile/
+[ ] Badge & banner reward untuk top rank - PENDING, perlu asset/desain dulu
+[ ] Weekly leaderboard reset tiap Senin - PENDING, butuh scheduled function (Cloud Functions/cron)
 
 [FITUR: PROFILE]
 [ ] Screen manage profile (edit data kecuali email)
@@ -122,6 +127,7 @@ TUTUR.ID - TODO LIST
 [ ] Responsive layout untuk admin (web) - saat ini asumsi desktop, cek di berbagai ukuran layar
 [ ] Icon custom BISINDO-themed (opsional)
 [ ] Micro-interaction (misal animasi saat dapat XP, konfetti saat naik level, dst)
+[ ] Ganti _categoryForModule() dari string-matching jadi field eksplisit `modelCategory` di ModuleModel
 
 [TESTING & OPTIMASI]
 [ ] Unit test repository & logic layer (mock provider pakai ProviderContainer override)

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tutur_id_app/features/gamification/logic/gamification_provider.dart';
 import 'package:tutur_id_app/features/learning/logic/learning_provider.dart';
+import 'package:tutur_id_app/shared/enums/quest_type.dart';
+import 'package:tutur_id_app/shared/enums/xp_source.dart';
 
 class QuizScreen extends ConsumerStatefulWidget {
   final String moduleId;
@@ -105,11 +108,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   Widget _buildResult(int totalQuestions) {
     final isPerfect = _correctCount == totalQuestions;
 
-    // Tandai modul selesai begitu kuis kelar
+    // Semua logic async digabung jadi satu callback, dipanggil sekali
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref
-          .read(learningNotifierProvider.notifier)
-          .completeModule(widget.moduleId);
+      _handleQuizCompletion(isPerfect);
     });
 
     return Center(
@@ -134,5 +135,27 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         ],
       ),
     );
+  }
+
+  Future<void> _handleQuizCompletion(bool isPerfect) async {
+    await ref
+        .read(learningNotifierProvider.notifier)
+        .completeModule(widget.moduleId);
+
+    if (_correctCount > 0) {
+      await ref
+          .read(gamificationNotifierProvider.notifier)
+          .addXp(
+            amount: _correctCount * 10,
+            source: XpSource.quiz,
+            referenceId: widget.moduleId,
+          );
+    }
+
+    if (isPerfect) {
+      await ref
+          .read(gamificationNotifierProvider.notifier)
+          .updateQuestProgress(QuestType.quizMaster);
+    }
   }
 }

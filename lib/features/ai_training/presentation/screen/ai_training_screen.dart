@@ -263,10 +263,10 @@ class _AiTrainingScreenState extends ConsumerState<AiTrainingScreen> {
                 Navigator.pop(context);
                 notifier.reset();
                 if (isLastMaterial) {
-                  Navigator.of(
-                    context,
-                  ).pop(); // modul selesai, balik ke ModuleDetailScreen
-                  // TODO: trigger completeModule
+                  Navigator.of(context).pop();
+                  ref
+                      .read(aiTrainingProvider.notifier)
+                      .completeSession();
                 } else {
                   setState(() => _currentIndex++);
                 }

@@ -8,6 +8,8 @@ class MainFlutterWindow: NSWindow {
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
 
+    self.title = "Tutur.id"
+
     RegisterGeneratedPlugins(registry: flutterViewController)
 
     super.awakeFromNib()
