@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tutur_id_app/core/services/providers.dart';
 import 'package:tutur_id_app/features/auth/logic/auth_provider.dart';
+import 'package:tutur_id_app/features/learning/data/models/material_item.dart';
 import 'package:tutur_id_app/features/learning/data/models/module_model.dart';
 import 'package:tutur_id_app/features/learning/data/repositories/learning_repository.dart';
 
@@ -32,6 +33,14 @@ final completedModulesProvider = FutureProvider<List<String>>((ref) async {
       .watch(learningRepositoryProvider)
       .getCompletedModuleIds(profile.uid);
 });
+
+final materialsLookupProvider =
+    FutureProvider.family<Map<String, MaterialItem>, List<int>>((
+      ref,
+      levels,
+    ) async {
+      return ref.watch(learningRepositoryProvider).getMaterialLookup(levels);
+    });
 
 // Notifier buat aksi: tandai modul selesai
 class LearningNotifier extends AsyncNotifier<void> {

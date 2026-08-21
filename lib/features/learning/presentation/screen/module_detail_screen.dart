@@ -3,7 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tutur_id_app/features/learning/data/models/module_model.dart';
 import 'package:tutur_id_app/features/learning/logic/learning_provider.dart';
-import 'package:tutur_id_app/shared/enums/model_category.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/identity_challange_screen.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/master_challange_screen.dart';
+import 'package:tutur_id_app/features/learning/presentation/screen/spelling_quest_screen.dart';
 
 class ModuleDetailScreen extends ConsumerWidget {
   final String moduleId;
@@ -13,18 +15,33 @@ class ModuleDetailScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final moduleAsync = ref.watch(moduleDetailProvider(moduleId));
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('Materi')),
-      body: moduleAsync.when(
-        data: (module) {
-          if (module == null) {
-            return const Center(child: Text('Modul tidak ditemukan'));
-          }
-          return _buildContent(context, ref, module);
-        },
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (err, stack) => Center(child: Text('Error: $err')),
-      ),
+    return moduleAsync.when(
+      data: (module) {
+        if (module == null) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Learning Materials')),
+            body: const Center(child: Text('Module not found')),
+          );
+        }
+
+        // Modul spesial - masing-masing sudah punya Scaffold sendiri
+        if (module.type == ModuleType.spellingChallenge) {
+          return module.title.toLowerCase().contains('identity')
+              ? IdentityChallengeScreen(moduleId: module.id)
+              : SpellingQuestScreen(moduleId: module.id);
+        }
+        if (module.type == ModuleType.masterChallenge) {
+          return MasterChallengeScreen(moduleId: module.id);
+        }
+        // Modul standar
+        return Scaffold(
+          appBar: AppBar(title: const Text('Learning Materials')),
+          body: _buildContent(context, ref, module),
+        );
+      },
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (err, stack) => Scaffold(body: Center(child: Text('Error: $err'))),
     );
   }
 
@@ -85,10 +102,7 @@ class ModuleDetailScreen extends ConsumerWidget {
                 : () {
                     context.push(
                       '/ai-training/${module.id}',
-                      extra: {
-                        'materials': module.materials,
-                        'category': _categoryForModule(module),
-                      },
+                      extra: {'materials': module.materials},
                     );
                   },
             icon: const Icon(Icons.camera_alt),
@@ -111,23 +125,5 @@ class ModuleDetailScreen extends ConsumerWidget {
         ),
       ],
     );
-  }
-
-  // Helper: tentukan model TFLite mana yang dipakai berdasarkan level & tipe modul
-  ModelCategory _categoryForModule(ModuleModel module) {
-    // Level 1-2 isinya alphabet & number (fingerspelling)
-    // Level 3 isinya kosakata/lexical (words)
-    if (module.type == ModuleType.lexical) {
-      return ModelCategory.words;
-    }
-
-    // Untuk fingerspelling, perlu bedakan alphabet vs number
-    // berdasarkan title modul (sesuai penamaan modul di requirement awal kamu)
-    final title = module.title.toLowerCase();
-    if (title.contains('number') || title.contains('angka')) {
-      return ModelCategory.number;
-    }
-
-    return ModelCategory.alphabet; // default untuk Alphabet Alpha/Omega
   }
 }

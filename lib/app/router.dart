@@ -12,7 +12,6 @@ import 'package:tutur_id_app/features/gamification/presentation/screen/leaderboa
 import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/quiz_screen.dart';
-import 'package:tutur_id_app/shared/enums/model_category.dart';
 import 'package:tutur_id_app/shared/enums/user_role.dart';
 
 const _adminPrefixes = ['/admin'];
@@ -112,7 +111,6 @@ final routerProvider = Provider<GoRouter>((ref) {
           return AiTrainingScreen(
             moduleId: moduleId,
             materials: extra?['materials'] ?? [],
-            category: extra?['category'] ?? ModelCategory.alphabet,
           );
         },
       ),

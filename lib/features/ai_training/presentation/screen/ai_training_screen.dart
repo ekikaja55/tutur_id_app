@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tutur_id_app/features/ai_training/logic/ai_training_provider.dart';
 import 'package:tutur_id_app/features/ai_training/logic/camera_controller_provider.dart';
+import 'package:tutur_id_app/features/ai_training/ml/model/model_category_resolver.dart';
 import 'package:tutur_id_app/features/learning/data/models/material_item.dart';
-import 'package:tutur_id_app/shared/enums/model_category.dart';
 
 class AiTrainingScreen extends ConsumerStatefulWidget {
   final String moduleId;
   final List<MaterialItem> materials;
-  final ModelCategory category;
 
   const AiTrainingScreen({
     super.key,
     required this.moduleId,
     required this.materials,
-    required this.category,
   });
 
   @override
@@ -158,7 +156,9 @@ class _AiTrainingScreenState extends ConsumerState<AiTrainingScreen> {
                 child: ElevatedButton.icon(
                   onPressed: () => notifier.startShutterTimer(
                     expectedLabel: currentMaterial.label,
-                    category: widget.category,
+                    category: ModelCategoryResolver.resolve(
+                      currentMaterial.label,
+                    ),
                   ),
                   icon: const Icon(Icons.camera),
                   label: const Text('Mulai (4 detik)'),
@@ -264,9 +264,7 @@ class _AiTrainingScreenState extends ConsumerState<AiTrainingScreen> {
                 notifier.reset();
                 if (isLastMaterial) {
                   Navigator.of(context).pop();
-                  ref
-                      .read(aiTrainingProvider.notifier)
-                      .completeSession();
+                  ref.read(aiTrainingProvider.notifier).completeSession();
                 } else {
                   setState(() => _currentIndex++);
                 }

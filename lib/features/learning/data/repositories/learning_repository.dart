@@ -1,4 +1,5 @@
 import 'package:tutur_id_app/core/services/firebase_service.dart';
+import 'package:tutur_id_app/features/learning/data/models/material_item.dart';
 import 'package:tutur_id_app/features/learning/data/models/module_model.dart';
 
 class LearningRepository {
@@ -36,5 +37,18 @@ class LearningRepository {
         'completedModules': current,
       });
     }
+  }
+
+  Future<Map<String, MaterialItem>> getMaterialLookup(List<int> levels) async {
+    final lookup = <String, MaterialItem>{};
+    for (final level in levels) {
+      final modules = await getModulesByLevel(level);
+      for (final module in modules) {
+        for (final item in module.materials) {
+          lookup[item.label.toUpperCase()] = item;
+        }
+      }
+    }
+    return lookup;
   }
 }

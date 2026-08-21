@@ -19,6 +19,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   int _correctCount = 0;
   int? _selectedOption;
   bool _answered = false;
+  bool _completionHandled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +110,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     final isPerfect = _correctCount == totalQuestions;
 
     // Semua logic async digabung jadi satu callback, dipanggil sekali
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _handleQuizCompletion(isPerfect);
-    });
+    if (!_completionHandled) {
+      _completionHandled = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _handleQuizCompletion(isPerfect);
+      });
+    }
 
     return Center(
       child: Column(
