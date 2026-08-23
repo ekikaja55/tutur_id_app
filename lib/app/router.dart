@@ -8,6 +8,7 @@ import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
 import 'package:tutur_id_app/features/ai_training/presentation/screen/ai_training_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/onboarding_screen.dart';
+import 'package:tutur_id_app/features/feedback_report/presentation/screen/feedback_report_hub_screen.dart';
 import 'package:tutur_id_app/features/gamification/presentation/screen/leaderboard_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
@@ -22,6 +23,7 @@ const _studentPrefixes = [
   '/ai-training',
   '/subscription',
   '/leaderboard',
+  '/feedback-report'
 ];
 
 // ini aku comment karena yah gausa toh juga yang gamasuk prefix admin / student route pasti shared kan
@@ -123,6 +125,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: "/profile",
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/feedback-report',
+        builder: (context, state) => const FeedbackReportHubScreen(),
       ),
       GoRoute(
         path: "/notification",

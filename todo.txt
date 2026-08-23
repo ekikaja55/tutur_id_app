@@ -78,11 +78,11 @@ TUTUR.ID - TODO LIST
 [ ] Riwayat aktivitas belajar - PENDING, butuh agregasi data dari xp_logs & user_progress
 
 [FITUR: REPORT & FEEDBACK]
-[ ] Form report (kategori: AI Kamera, Pembayaran, Materi)
-[ ] Upload 2 foto bukti ke Cloudinary
-[ ] Tombol "Hubungi via WhatsApp" (wa.me link)
-[ ] Form feedback (star rating + deskripsi)
-[ ] Provider: reportRepositoryProvider, submitReportProvider (AsyncNotifierProvider)
+[x] Form report (kategori: AI Kamera, Pembayaran, Materi)
+[x] Upload 2 foto bukti ke Cloudinary (wajib)
+[x] Tombol "Hubungi via WhatsApp" (wa.me link)
+[x] Form feedback (star rating + deskripsi)
+[x] Provider: reportRepositoryProvider, submitReportProvider
 
 [FITUR: NOTIFIKASI]
 [ ] Pusat notifikasi UI
