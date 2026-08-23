@@ -53,12 +53,12 @@ TUTUR.ID - TODO LIST
 [ ] Trigger completeModule() setelah AI training modul selesai - PENDING, perlu integrasi ke learning/
 
 [FITUR: SUBSCRIPTION]
-[ ] Screen pilihan paket (Starter/Growth/Ultimate)
-[ ] Integrasi Midtrans payment flow
-[ ] Provider: subscriptionProvider (AsyncNotifierProvider) untuk handle checkout & status
-[ ] Handle callback/webhook status transaksi
-[ ] Update status subscription otomatis setelah pembayaran sukses
-[ ] Unlock fitur sesuai tier (level akses, badge, banner)
+[x] Screen pilihan paket (Starter/Growth/Ultimate)
+[x] Integrasi Midtrans payment flow (Snap token + WebView)
+[x] Update status subscription tier setelah pembayaran (optimistic, client-side)
+[x] Unlock fitur sesuai tier (battery capacity sudah terhubung dari gamification)
+[ ] Handle callback/webhook status transaksi via server - PENDING, masuk fase Cloud Functions
+[ ] Validasi payment success dari server, bukan URL pattern matching - PENDING, sama seperti di atas
 
 [FITUR: GAMIFIKASI]
 [x] Sistem XP otomatis (sesi latihan +50, modul +100, kuis +10 per jawaban benar)
@@ -72,10 +72,10 @@ TUTUR.ID - TODO LIST
 [ ] Weekly leaderboard reset tiap Senin - PENDING, butuh scheduled function (Cloud Functions/cron)
 
 [FITUR: PROFILE]
-[ ] Screen manage profile (edit data kecuali email)
-[ ] Provider: profileProvider (FutureProvider/AsyncNotifierProvider untuk update)
-[ ] Tampilkan sisa saldo baterai
-[ ] Riwayat aktivitas belajar
+[x] Screen manage profile (edit data kecuali email)
+[x] Provider: profileProvider (update data + foto)
+[x] Tampilkan sisa saldo baterai, XP, streak
+[ ] Riwayat aktivitas belajar - PENDING, butuh agregasi data dari xp_logs & user_progress
 
 [FITUR: REPORT & FEEDBACK]
 [ ] Form report (kategori: AI Kamera, Pembayaran, Materi)
@@ -126,7 +126,9 @@ TUTUR.ID - TODO LIST
 
 
 [POLISH & DESIGN - dikerjakan setelah semua fitur fungsional selesai]
-[ ] Upload foto profil saat onboarding
+[ ] orderId perlu disimpan di SubscriptionState supaya bisa dipakai saat confirmPayment()
+    (saat ini ada gap kecil di kode - lihat catatan di subscription_screen.dart)
+[ ] Upload foto profil saat onboarding - SKIP, sudah tercover lewat Edit Profile
 [ ] Custom theme sesuai brand identity Tutur.id (logo, warna, font)
 [ ] Refine UI semua screen (replace placeholder styling)
 [ ] Animasi transisi antar halaman

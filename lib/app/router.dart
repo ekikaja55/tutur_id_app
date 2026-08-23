@@ -12,6 +12,8 @@ import 'package:tutur_id_app/features/gamification/presentation/screen/leaderboa
 import 'package:tutur_id_app/features/learning/presentation/screen/learning_home_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/module_detail_screen.dart';
 import 'package:tutur_id_app/features/learning/presentation/screen/quiz_screen.dart';
+import 'package:tutur_id_app/features/profile/presentation/screen/profile_screen.dart';
+import 'package:tutur_id_app/features/subscription/presentation/screen/subscription_screen.dart';
 import 'package:tutur_id_app/shared/enums/user_role.dart';
 
 const _adminPrefixes = ['/admin'];
@@ -116,20 +118,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: "/subscription",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Subcription Page"),
+        builder: (context, state) => const SubscriptionScreen(),
       ),
       GoRoute(
         path: "/profile",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Profile Page"),
+        builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
         path: "/notification",
         builder: (context, state) =>
             const PlaceholderScreen(title: "Notification Page"),
       ),
-     GoRoute(
+      GoRoute(
         path: '/leaderboard',
         builder: (context, state) => const LeaderboardScreen(),
       ),

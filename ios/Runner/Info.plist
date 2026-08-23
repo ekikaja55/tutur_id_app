@@ -26,7 +26,9 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
   <key>NSCameraUsageDescription</key>
   <string>Tutur.id requires camera access for BISINDO gesture practice.</string>
-	<key>LSRequiresIPhoneOS</key>
+	<key>NSPhotoLibraryUsageDescription</key>
+  <string>Tutur.id requires access to your gallery to change your profile photo.</string>
+  <key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
