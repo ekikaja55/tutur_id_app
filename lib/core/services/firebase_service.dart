@@ -116,4 +116,55 @@ class FirebaseService {
           .toList(),
     );
   }
+
+  // handling sub collection
+  Stream<List<Map<String, dynamic>>> streamSubcollection(
+    String parentCollection,
+    String parentId,
+    String subcollection, {
+    Query Function(Query)? queryBuilder,
+  }) {
+    Query query = _firestore
+        .collection(parentCollection)
+        .doc(parentId)
+        .collection(subcollection);
+    if (queryBuilder != null) {
+      query = queryBuilder(query);
+    }
+    return query.snapshots().map(
+      (snapshot) => snapshot.docs
+          .map((doc) => {...doc.data() as Map<String, dynamic>, 'id': doc.id})
+          .toList(),
+    );
+  }
+
+  Future<void> setSubcollectionDocument(
+    String parentCollection,
+    String parentId,
+    String subcollection,
+    String docId,
+    Map<String, dynamic> data,
+  ) async {
+    await _firestore
+        .collection(parentCollection)
+        .doc(parentId)
+        .collection(subcollection)
+        .doc(docId)
+        .set(data, SetOptions(merge: true));
+  }
+
+  Future<void> updateSubcollectionDocument(
+    String parentCollection,
+    String parentId,
+    String subcollection,
+    String docId,
+    Map<String, dynamic> data,
+  ) async {
+    await _firestore
+        .collection(parentCollection)
+        .doc(parentId)
+        .collection(subcollection)
+        .doc(docId)
+        .update(data);
+  }
 }

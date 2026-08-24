@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tutur_id_app/core/widgets/notification_badge_icon.dart';
 import 'package:tutur_id_app/features/gamification/logic/gamification_provider.dart';
 import 'package:tutur_id_app/features/gamification/presentation/widgets/daily_quest_card.dart';
 import 'package:tutur_id_app/features/learning/data/models/level_model.dart';
@@ -25,7 +26,10 @@ class _LearningHomeScreenState extends ConsumerState<LearningHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Belajar BISINDO')),
+      appBar: AppBar(
+        title: const Text('Belajar BISINDO'),
+        actions: [NotificationBadgeIcon()],
+      ),
       body: Column(
         children: [
           const DailyQuestCard(),

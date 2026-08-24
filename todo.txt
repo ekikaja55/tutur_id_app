@@ -85,19 +85,13 @@ TUTUR.ID - TODO LIST
 [x] Provider: reportRepositoryProvider, submitReportProvider
 
 [FITUR: NOTIFIKASI]
-[ ] Pusat notifikasi UI
-[ ] Provider: notificationProvider (StreamProvider dari Firebase)
-[ ] Integrasi Firebase untuk pesan sistem
-[ ] Notifikasi Daily Quest reminder
-[ ] Notifikasi perubahan leaderboard
-[ ] Notifikasi status transaksi Midtrans
-[ ] Arsip riwayat notifikasi
-
-[CLOUD FUNCTIONS - dikerjakan di fase terpisah setelah semua fitur client selesai]
-[ ] Setup Firebase Functions environment (firebase init functions, upgrade ke Blaze plan)
-[ ] Function: reset weeklyXp leaderboard tiap Senin (Cloud Scheduler trigger)
-[ ] Function: validasi webhook Midtrans (update subscriptions & transactions aman dari manipulasi client)
-[ ] Function: update leaderboard/XP dari server-side (ganti allow write: if false di Firestore Rules jadi benar-benar terisi)
+[x] Pusat notifikasi UI (real-time via StreamProvider)
+[x] Provider: notificationProvider, unreadNotificationCountProvider
+[x] Badge counter notifikasi belum dibaca
+[ ] Trigger notifikasi dari update status report - PENDING, nyambung ke admin/feedback_report_review
+[ ] Trigger notifikasi dari status transaksi Midtrans - PENDING, nyambung ke subscription
+[ ] Broadcast notifikasi dari admin - PENDING, masuk fitur admin/broadcast
+[ ] Notifikasi Daily Quest reminder - PENDING, butuh scheduled job (Cloud Functions)
 
 [ADMIN: MANAJEMEN PENGGUNA]
 [ ] List & filter pengguna aktif
@@ -123,7 +117,14 @@ TUTUR.ID - TODO LIST
 [ ] Kirim pesan respon (template/custom)
 [ ] Review feedback + star rating analytics
 
-
+[CLOUD FUNCTIONS - dikerjakan setelah SEMUA fitur client & admin selesai]
+[ ] Setup Firebase Functions environment (firebase init functions, upgrade ke Blaze plan)
+[ ] Function: reset weeklyXp leaderboard tiap Senin (Cloud Scheduler trigger)
+[ ] Function: validasi webhook Midtrans (update subscriptions & transactions aman dari manipulasi client)
+[ ] Function: update leaderboard/XP dari server-side (ganti allow write: if false di Firestore Rules jadi benar-benar terisi)
+[ ] Function: broadcast notifikasi ke semua/sebagian user (dari admin/broadcast)
+[ ] Function: auto-notify user saat status report/feedback diupdate admin (Firestore trigger onUpdate)
+[ ] Function: agregasi laporan transaksi (pendapatan bulanan) - opsional, tergantung kompleksitas dashboard admin
 
 [POLISH & DESIGN - dikerjakan setelah semua fitur fungsional selesai]
 [ ] orderId perlu disimpan di SubscriptionState supaya bisa dipakai saat confirmPayment()
