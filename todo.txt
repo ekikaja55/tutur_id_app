@@ -93,6 +93,12 @@ TUTUR.ID - TODO LIST
 [ ] Broadcast notifikasi dari admin - PENDING, masuk fitur admin/broadcast
 [ ] Notifikasi Daily Quest reminder - PENDING, butuh scheduled job (Cloud Functions)
 
+[ADMIN: DASHBOARD]
+[x] Layout admin dengan NavigationRail (AdminShell)
+[x] Summary cards (total user, pending report, modul, transaksi bulan ini)
+[x] Quick access ke semua sub-fitur admin
+[x] ShellRoute setup untuk persistent navigation
+
 [ADMIN: MANAJEMEN PENGGUNA]
 [ ] List & filter pengguna aktif
 [ ] Lihat status subscription per user
@@ -140,7 +146,7 @@ TUTUR.ID - TODO LIST
 [ ] Micro-interaction (misal animasi saat dapat XP, konfetti saat naik level, dst)
 [ ] Ganti _categoryForModule() dari string-matching jadi field eksplisit `modelCategory` di ModuleModel
 [ ] Ganti pembeda SpellingQuest vs Identity dari title-matching jadi field eksplisit (subType) di ModuleModel
-
+[ ] Ganti getCollection().length dengan Firestore count() aggregation query untuk efisiensi read quota
 [TESTING & OPTIMASI]
 [ ] Unit test repository & logic layer (mock provider pakai ProviderContainer override)
 [ ] Widget test screen utama (pakai ProviderScope override untuk testing)

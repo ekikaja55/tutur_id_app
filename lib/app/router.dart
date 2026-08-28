@@ -3,8 +3,10 @@ import 'package:go_router/go_router.dart';
 import 'package:tutur_id_app/core/services/providers.dart';
 import 'package:tutur_id_app/core/utils/go_router_refresh_stream.dart';
 import 'package:tutur_id_app/core/widgets/access_denied_screen.dart';
+import 'package:tutur_id_app/core/widgets/admin_shell.dart';
 import 'package:tutur_id_app/core/widgets/not_found_screen.dart';
 import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
+import 'package:tutur_id_app/features/admin/dashboard/presentation/screen/admin_dashboard_screen.dart';
 import 'package:tutur_id_app/features/ai_training/presentation/screen/ai_training_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/onboarding_screen.dart';
@@ -140,40 +142,40 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const LeaderboardScreen(),
       ),
 
-      // =============== ROUTES LIST BUAT ADMIN ===============
-      GoRoute(
-        path: "/admin",
-        builder: (context, state) =>
-            const PlaceholderScreen(title: "Admin - Dashboard Page"),
+      // =============== ROUTES LIST SHELL BUAT ADMIN ===============
+      ShellRoute(
+        builder: (context, state, child) {
+          return AdminShell(currentPath: state.matchedLocation, child: child);
+        },
         routes: [
           GoRoute(
-            path: "users",
+            path: '/admin',
+            builder: (context, state) => const AdminDashboardScreen(),
+          ),
+          GoRoute(
+            path: '/admin/users',
             builder: (context, state) =>
-                const PlaceholderScreen(title: "Admin - Users Management Page"),
+                const PlaceholderScreen(title: 'Manajemen Pengguna'),
           ),
           GoRoute(
-            path: "content",
-            builder: (context, state) => const PlaceholderScreen(
-              title: "Admin - Contents Management Page",
-            ),
+            path: '/admin/content',
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Materi Pembelajaran'),
           ),
           GoRoute(
-            path: "broadcast",
-            builder: (context, state) => const PlaceholderScreen(
-              title: "Admin - Broadcast Management Page",
-            ),
+            path: '/admin/broadcast',
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Broadcast Notifikasi'),
           ),
           GoRoute(
-            path: "transactions",
-            builder: (context, state) => const PlaceholderScreen(
-              title: "Admin - Transactions Management Page",
-            ),
+            path: '/admin/transactions',
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Laporan Transaksi'),
           ),
           GoRoute(
-            path: "feedback",
-            builder: (context, state) => const PlaceholderScreen(
-              title: "Admin - Feedback Management Page",
-            ),
+            path: '/admin/feedback',
+            builder: (context, state) =>
+                const PlaceholderScreen(title: 'Report & Feedback'),
           ),
         ],
       ),
