@@ -6,7 +6,9 @@ import 'package:tutur_id_app/core/widgets/access_denied_screen.dart';
 import 'package:tutur_id_app/core/widgets/admin_shell.dart';
 import 'package:tutur_id_app/core/widgets/not_found_screen.dart';
 import 'package:tutur_id_app/core/widgets/placeholder_screen.dart';
+import 'package:tutur_id_app/core/widgets/suspended_screen.dart';
 import 'package:tutur_id_app/features/admin/dashboard/presentation/screen/admin_dashboard_screen.dart';
+import 'package:tutur_id_app/features/admin/user_managament/presentation/screen/user_management_screen.dart';
 import 'package:tutur_id_app/features/ai_training/presentation/screen/ai_training_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:tutur_id_app/features/auth/presentation/screen/onboarding_screen.dart';
@@ -71,6 +73,9 @@ final routerProvider = Provider<GoRouter>((ref) {
             _matchesAnyPrefix(location, _studentPrefixes)) {
           return '/access-denied';
         }
+        if (userData['isSuspended'] == true && !isLoggingIn) {
+          return '/suspended';
+        }
       }
       return null;
     },
@@ -80,6 +85,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: "/access-denied",
         builder: (context, state) => const AccessDeniedScreen(),
+      ),
+      GoRoute(
+        path: "/suspended",
+        builder: (context, state) => const SuspendedScreen(),
       ),
 
       // =============== ROUTES LIST BUAT PELAJAR ===============
@@ -154,8 +163,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           ),
           GoRoute(
             path: '/admin/users',
-            builder: (context, state) =>
-                const PlaceholderScreen(title: 'Manajemen Pengguna'),
+            builder: (context, state) => const UserManagementScreen(),
           ),
           GoRoute(
             path: '/admin/content',

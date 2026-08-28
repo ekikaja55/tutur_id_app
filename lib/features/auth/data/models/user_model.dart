@@ -2,12 +2,13 @@ import 'package:tutur_id_app/shared/enums/user_role.dart';
 import 'package:tutur_id_app/shared/enums/user_tier.dart';
 
 class UserModel {
-  final String uid; 
+  final String uid;
   final String email;
   final String? username;
   final String? phoneNumber;
   final String? photoUrl;
   final UserRole role;
+  final bool isSuspended;
 
   final int battery;
   final DateTime? batteryLastRefill;
@@ -28,6 +29,7 @@ class UserModel {
     this.phoneNumber,
     this.photoUrl,
     this.role = UserRole.student,
+    this.isSuspended = false,
     this.battery = 14,
     this.batteryLastRefill,
     this.subscriptionTier = UserTier.starter,
@@ -46,6 +48,7 @@ class UserModel {
       phoneNumber: json['phoneNumber'] as String?,
       photoUrl: json['photoUrl'] as String?,
       role: UserRole.fromMap(json['role'] as String?),
+      isSuspended: json['isSuspended'] as bool? ?? false,
       battery: json['battery'] as int? ?? 14,
       batteryLastRefill: json['batteryLastRefill'] != null
           ? DateTime.parse(json['batteryLastRefill'] as String)
@@ -73,6 +76,7 @@ class UserModel {
       'phoneNumber': phoneNumber,
       'photoUrl': photoUrl,
       'role': role,
+      'isSuspended': isSuspended,
       'battery': battery,
       'batteryLastRefill': batteryLastRefill,
       'subscriptionTier': subscriptionTier,
@@ -89,6 +93,7 @@ class UserModel {
     String? phoneNumber,
     String? photoUrl,
     UserRole? role,
+    bool? isSuspended,
     int? battery,
     DateTime? batteryLastRefill,
     UserTier? subscriptionTier,
@@ -104,6 +109,7 @@ class UserModel {
       phoneNumber: phoneNumber ?? this.phoneNumber,
       photoUrl: photoUrl ?? this.photoUrl,
       role: role ?? this.role,
+      isSuspended: isSuspended ?? this.isSuspended,
       battery: battery ?? this.battery,
       batteryLastRefill: batteryLastRefill,
       subscriptionTier: subscriptionTier ?? this.subscriptionTier,

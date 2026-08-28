@@ -100,9 +100,10 @@ TUTUR.ID - TODO LIST
 [x] ShellRoute setup untuk persistent navigation
 
 [ADMIN: MANAJEMEN PENGGUNA]
-[ ] List & filter pengguna aktif
-[ ] Lihat status subscription per user
-[ ] Aksi administratif (suspend/handle penyalahgunaan)
+[x] List & filter pengguna aktif (search, filter by tier, filter by status)
+[x] Lihat status subscription per user
+[x] Aksi administratif (suspend/aktifkan kembali akun)
+[x] Blokir akses app untuk user yang di-suspend (router redirect)
 
 [ADMIN: CRUD MATERI]
 [ ] Form upload materi (video/foto ke Cloudinary)
@@ -147,6 +148,8 @@ TUTUR.ID - TODO LIST
 [ ] Ganti _categoryForModule() dari string-matching jadi field eksplisit `modelCategory` di ModuleModel
 [ ] Ganti pembeda SpellingQuest vs Identity dari title-matching jadi field eksplisit (subType) di ModuleModel
 [ ] Ganti getCollection().length dengan Firestore count() aggregation query untuk efisiensi read quota
+[ ] Pagination untuk list user - saat ini fetch semua sekaligus, perlu dibatasi kalau user makin banyak
+
 [TESTING & OPTIMASI]
 [ ] Unit test repository & logic layer (mock provider pakai ProviderContainer override)
 [ ] Widget test screen utama (pakai ProviderScope override untuk testing)
